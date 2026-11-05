@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <title>Sentinela IoT</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Sentinela IoT - início">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M24 4 40 10v12c0 10.8-6.5 18-16 22C14.5 40 8 32.8 8 22V10l16-6Z"/>
+            <path class="brand-mark-cut" d="m17 24 4.5 4.5L32 18"/>
+          </svg>
+        </span>
+        <span>
+          <strong>Sentinela</strong>
+          <small>Monitoramento IoT</small>
+        </span>
+      </a>
+      <div class="connection-pill" id="connection-pill">
+        <span class="pulse-dot"></span>
+        <span id="connection-text">Conectando...</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Painel de segurança</p>
+          <h1>Visão geral da máquina</h1>
+          <p class="hero-copy">Leituras do sensor ultrassônico, alertas e comunicação em tempo real.</p>
+        </div>
+        <div class="last-update">
+          <span>Última leitura</span>
+          <strong id="last-reading">—</strong>
+        </div>
+      </section>
+
+      <section class="status-grid" aria-label="Estado atual">
+        <article class="card primary-status" id="status-card" data-state="SEM_SINAL">
+          <div class="card-label">Situação atual</div>
+          <div class="status-content">
+            <span class="status-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2Zm0 6 1 7h-2l1-7Zm0 10.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z"/></svg>
+            </span>
+            <div>
+              <strong id="situation">SEM SINAL</strong>
+              <span id="status-description">Aguardando dados do sensor</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card metric-card">
+          <div class="card-label">Distância atual</div>
+          <div class="metric"><strong id="distance">—</strong><span>cm</span></div>
+          <p>Limite de alerta: 30 cm</p>
+        </article>
+
+        <article class="card details-card">
+          <div class="card-label">Equipamento</div>
+          <dl>
+            <div><dt>Dispositivo</dt><dd id="device-id">maquina1</dd></div>
+            <div><dt>Origem</dt><dd id="source">—</dd></div>
+            <div><dt>Banco</dt><dd id="database-state">—</dd></div>
+          </dl>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="card chart-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Histórico recente</p>
+              <h2>Distância do sensor</h2>
+            </div>
+            <span class="legend"><i></i> Distância em cm</span>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="distance-chart" aria-label="Gráfico das últimas distâncias"></canvas>
+          </div>
+        </article>
+
+        <article class="card alert-summary">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Ocorrências</p>
+              <h2>Resumo</h2>
+            </div>
+          </div>
+          <div class="summary-number"><strong id="alert-count">0</strong><span>alertas registrados</span></div>
+          <div class="summary-row"><span>Em andamento</span><strong id="open-alert-count">0</strong></div>
+          <div class="summary-row"><span>Reconhecidos</span><strong id="ack-alert-count">0</strong></div>
+          <a class="docs-link" href="/docs">Abrir documentação da API →</a>
+        </article>
+      </section>
+
+      <section class="card alerts-card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Registro</p>
+            <h2>Alertas recentes</h2>
+          </div>
+          <button class="secondary-button" id="refresh-button" type="button">Atualizar</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Início</th>
+                <th>Duração</th>
+                <th>Menor distância</th>
+                <th>Estado</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="alerts-body">
+              <tr><td class="empty-state" colspan="5">Nenhum alerta registrado.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Projeto educacional SENAI</span>
+      <span>Arduino · Raspberry Pi · MQTT · FastAPI</span>
+    </footer>
+  </div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

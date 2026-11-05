@@ -1,4 +1,5 @@
-fastapi>=0.110
-uvicorn>=0.27
+fastapi>=0.110,<1
+uvicorn>=0.27,<1
+websockets>=12,<16
 pyserial>=3.5
 paho-mqtt>=2.0,<3

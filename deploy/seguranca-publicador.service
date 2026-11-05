@@ -1,0 +1,16 @@
+[Unit]
+Description=Sentinela IoT - Arduino serial para MQTT
+After=network.target mosquitto.service
+Wants=mosquitto.service
+
+[Service]
+Type=simple
+User=__APP_USER__
+WorkingDirectory=__APP_DIR__
+EnvironmentFile=-/etc/default/seguranca-iot
+ExecStart=__APP_DIR__/.venv/bin/python -u serial_para_mqtt.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
