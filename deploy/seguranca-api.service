@@ -1,0 +1,16 @@
+[Unit]
+Description=Sentinela IoT - API e dashboard
+After=network.target mosquitto.service
+Wants=mosquitto.service
+
+[Service]
+Type=simple
+User=__APP_USER__
+WorkingDirectory=__APP_DIR__
+EnvironmentFile=-/etc/default/seguranca-iot
+ExecStart=__APP_DIR__/.venv/bin/python -m uvicorn main:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
